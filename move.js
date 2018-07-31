@@ -32,6 +32,7 @@ function movePre(player) {
 
 function movePost(nextMove)
 {
+  console.log(nextMove + "NEEXXXT");
   if(nextMove[0][0]+nextMove[0][1]+nextMove[1][0]+nextMove[1][1] == 0) openModal("win");
   
   save();

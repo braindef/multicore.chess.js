@@ -1,7 +1,7 @@
 
-cpuCores = 10;
-workers = [];
-numMoves = 0;
+var cpuCores = 10;
+var workers = [];
+var numMoves = 0;
 
 createWorkers();
 
@@ -22,12 +22,13 @@ var storedMoves = [];
 function minimaxPre(depth, player, init, resetCounter)  //TODO: RESETCOUNTER
 {
   totalInstances = 0;
-  moves = possibleMoves(player);
-  storedMoves = moves.slice();
+  pMoves = possibleMoves(player);
   
-  for(var i=0; i<moves.length; i++)
+  
+  for(var i=0; i<pMoves.length; i++)
   {
-    var move = commitMove(moves[i], player);
+    var move = commitMove(pMoves[i], player);
+    storedMoves.push(pMoves[i]);
     if(isInCheck(player))
     {
       revertMove(move);
@@ -42,8 +43,8 @@ function minimaxPre(depth, player, init, resetCounter)  //TODO: RESETCOUNTER
 }
 
 
-currentWorker = 0;
-results = [];
+var currentWorker = 0;
+var results = [];
 
 var totalInstances = 0;
 
@@ -67,17 +68,14 @@ function handleMessageFromWorker(msg) {
       moves = minimaxPost(results);
       
       movePost(moves, player);
-
+      
+      results = [];
     }
-    
-
 }
 
 
 
 function minimaxPost(moves) {
-
-  console.log(moves);
 
   var bestMove = [[0,0],[0,0]];
 
@@ -87,11 +85,16 @@ function minimaxPost(moves) {
   {
     if(moves[i][0]<bestValue)
     {
-      console.log(moves);
       bestValue = moves[i][0];
-      bestMove = storedMoves[parseInt(moves[i][5])] ;
+      minimaxPostNr = parseInt(moves[i][5]);
+
+      bestMove = storedMoves[minimaxPostNr] ;
+      
+      console.log("BEWST: "+bestMove);
+      console.log(moves);
     }
-          }
+  }
+    storedMoves = [];
     return bestMove;
 }
 
