@@ -51,8 +51,6 @@ function handleMessageFromWorker(msg) {
 
     currentWorker+=1;
 
-    console.log(currentWorker+ " = "+numMoves);
-    
     if(currentWorker==numMoves)
     {
       currentWorker = 0;
@@ -68,7 +66,7 @@ function handleMessageFromWorker(msg) {
 
 function minimaxPost(moves) {
 
-  console.log("STORED: "+storedMoves);
+  console.log(moves);
 
   var bestMove = [[0,0],[0,0]];
 
@@ -78,9 +76,9 @@ function minimaxPost(moves) {
   {
     if(moves[i][0]<bestValue)
     {
-    console.log(moves);
+      console.log(moves);
       bestValue = moves[i][0];
-      bestMove = storedMoves[parseInt(moves[i][1])];
+      bestMove = [ [ moves[i][1], moves[i][2] ], [moves[i][3], moves[i][4]] ];
     }
           }
     return bestMove;

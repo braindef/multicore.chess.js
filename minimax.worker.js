@@ -27,9 +27,11 @@ onmessage = function(e) {
   var init = data[66]=="true";
   var moveNumber = data[67];
   
-  result = minimax(depth, player, false)[0];
+  result = minimax(depth, player, false);
   
-  self.postMessage( [result , moveNumber ] );
+  console.log(result);
+  
+  self.postMessage( [ result[0], result[1][0][0], result[1][0][1], result[1][1][0], result[1][1][1], moveNumber ] );
 }
 
 

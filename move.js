@@ -32,7 +32,6 @@ function movePre(player) {
 
 function movePost(nextMove)
 {
-  console.log("movePost "+ nextMove);
   if(nextMove[0][0]+nextMove[0][1]+nextMove[1][0]+nextMove[1][1] == 0) openModal("win");
   
   save();
@@ -48,21 +47,21 @@ function movePost(nextMove)
   
   document.getElementById("f"+nextMove[0][0]+nextMove[0][1]).className="selected";
   document.getElementById("f"+nextMove[1][0]+nextMove[1][1]).className="selected";
-  //console.log("f"+nextMove[0][0]+nextMove[0][1]);
+
   setTimeout(function(){ document.getElementById("white").className=""; }, 100);
   setTimeout(function(){ document.getElementById("black").className=""; }, 100);
   if(player==1) setTimeout(function(){ document.getElementById("black").className="selected";   }, 1000);
   else setTimeout(function(){ document.getElementById("white").className="selected";   }, 1000);
 
   var nextMove = minimax(1, -staticPlayer, true)[1];
-  console.log("pre checkmate "+nextMove);
+
   //var nextMove = alphabeta(depth, player, true, -1000000, 1000000);
     if(nextMove[0][0]+nextMove[0][1]+nextMove[1][0]+nextMove[1][1] == 0) 
     {
       openModal("checkmate");
     }
     else if(isInCheck(-staticPlayer)) openModal("check");
-    //console.log(nextMove);
+
 
   setTimeout(function(){  resetBoard(); }, 5000);
 
