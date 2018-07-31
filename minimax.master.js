@@ -24,6 +24,7 @@ function minimaxPre(depth, player, init, resetCounter)  //TODO: RESETCOUNTER
   totalInstances = 0;
   pMoves = possibleMoves(player);
   
+  console.log(pMoves);
   
   for(var i=0; i<pMoves.length; i++)
   {
@@ -34,7 +35,7 @@ function minimaxPre(depth, player, init, resetCounter)  //TODO: RESETCOUNTER
       revertMove(move);
       continue;
     }
-    data = [ board, depth-1, player, init, i ];
+    data = [ board, depth-1, -player, init, i ];
     numMoves+=1;
     workers[i%cpuCores].postMessage(data);
     
@@ -50,6 +51,8 @@ var totalInstances = 0;
 
 function handleMessageFromWorker(msg) {
     console.log('incoming message from worker, msg:', msg.data);
+
+
 
     results.push(msg.data);
 
@@ -88,13 +91,15 @@ function minimaxPost(moves) {
       bestValue = moves[i][0];
       minimaxPostNr = parseInt(moves[i][5]);
 
-      bestMove = storedMoves[minimaxPostNr] ;
-      
-      console.log("BEWST: "+bestMove);
-      console.log(moves);
+      bestMove = storedMoves[minimaxPostNr];
     }
   }
-    storedMoves = [];
+    console.log("Stored Moves: "+storedMoves.length);
+    console.log(storedMoves);
+    console.log("BEWST: "+bestMove);
+    console.log(moves);
+  
+    storedMoves = new Array();
     return bestMove;
 }
 
