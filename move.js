@@ -32,16 +32,16 @@ function movePre(player) {
 
 function movePost(nextMove)
 {
-
+  console.log("movePost "+ nextMove);
   if(nextMove[0][0]+nextMove[0][1]+nextMove[1][0]+nextMove[1][1] == 0) openModal("win");
   
   save();
-  //move logging
+ 
   document.getElementById("output").innerHTML+= getFigure(nextMove) + " " + getVerticalLetter(nextMove[0][0])+getHorizontalNumber(nextMove[0][1]) + " => " + getVerticalLetter(nextMove[1][0]) + getHorizontalNumber(nextMove[1][1]) + "<br>";
   
   board[nextMove[1][0]*8+nextMove[1][1]]=board[nextMove[0][0]*8+nextMove[0][1]];
   board[nextMove[0][0]*8+nextMove[0][1]]=""
-  postMoveProcessing(nextMove, player);
+  postMoveProcessing(nextMove, staticPlayer);
    
   drawBoard();
   document.getElementById("lostWhite").innerHTML = getLostFigures(1);
@@ -54,9 +54,8 @@ function movePost(nextMove)
   if(player==1) setTimeout(function(){ document.getElementById("black").className="selected";   }, 1000);
   else setTimeout(function(){ document.getElementById("white").className="selected";   }, 1000);
 
-
-
-  var nextMove = minimax(1, -staticPlayer, true, false);
+  var nextMove = minimax(1, -staticPlayer, true)[1];
+  console.log("pre checkmate "+nextMove);
   //var nextMove = alphabeta(depth, player, true, -1000000, 1000000);
     if(nextMove[0][0]+nextMove[0][1]+nextMove[1][0]+nextMove[1][1] == 0) 
     {

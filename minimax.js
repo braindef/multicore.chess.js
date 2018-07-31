@@ -73,7 +73,7 @@ function minimax(depth, player, init, resetCounter)
   
   var bestMove = [[0,0],[0,0]];
 
-  if(depth < 1) return evaluateBoard();
+  if(depth < 1) return [ evaluateBoard(), [[0,0],[0,0]] ];
 
   var moves = shuffle(possibleMoves(player));
 
@@ -94,7 +94,7 @@ function minimax(depth, player, init, resetCounter)
       }
     }
 
-    var value = minimax(depth-1, -1*player, false);
+    var value = minimax(depth-1, -1*player, false)[0];
 
 
     if(player==1)        
@@ -115,13 +115,7 @@ function minimax(depth, player, init, resetCounter)
     revertMove(savedData);
   }
 
-  //we return the points except the first move we return the move to play    
-  if (init)
-  {
-    document.getElementById("instances").value=instances;
-    return bestMove;
-  }
-  else return bestValue;
+  return [ bestValue, bestMove ];
 
 }
 
