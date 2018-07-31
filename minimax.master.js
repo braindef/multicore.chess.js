@@ -21,6 +21,7 @@ var storedMoves = [];
 //minmax algorithm that does the game
 function minimaxPre(depth, player, init, resetCounter)  //TODO: RESETCOUNTER
 {
+  totalInstances = 0;
   moves = possibleMoves(player);
   storedMoves = moves.slice();
   
@@ -32,7 +33,7 @@ function minimaxPre(depth, player, init, resetCounter)  //TODO: RESETCOUNTER
       revertMove(move);
       continue;
     }
-    data = [ board, depth, player, init, i ];
+    data = [ board, depth-1, player, init, i ];
     numMoves+=1;
     workers[i%cpuCores].postMessage(data);
     
@@ -44,12 +45,20 @@ function minimaxPre(depth, player, init, resetCounter)  //TODO: RESETCOUNTER
 currentWorker = 0;
 results = [];
 
+var totalInstances = 0;
+
 function handleMessageFromWorker(msg) {
     console.log('incoming message from worker, msg:', msg.data);
 
     results.push(msg.data);
 
     currentWorker+=1;
+
+    totalInstances += parseInt(msg.data[6]);
+    
+    document.getElementById("instances").value = totalInstances;
+    
+    console.log(totalInstances);
 
     if(currentWorker==numMoves)
     {
@@ -60,6 +69,8 @@ function handleMessageFromWorker(msg) {
       movePost(moves, player);
 
     }
+    
+
 }
 
 
@@ -78,7 +89,7 @@ function minimaxPost(moves) {
     {
       console.log(moves);
       bestValue = moves[i][0];
-      bestMove = [ [ moves[i][1], moves[i][2] ], [moves[i][3], moves[i][4]] ];
+      bestMove = storedMoves[parseInt(moves[i][5])] ;
     }
           }
     return bestMove;
