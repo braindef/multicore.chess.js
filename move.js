@@ -15,9 +15,8 @@ function moveWhite() {
 function moveBlack() {
   start = new Date().getTime();
   movePre(-1);
-  end = new Date().getTime();
-  time = (end-start)/1000;
-  document.getElementById("black").innerHTML="turn Black ("+parseInt(time)+"s)";
+
+
 }
 
 var staticPlayer = 0;
@@ -42,6 +41,11 @@ function movePost(nextMove)
   board[nextMove[1][0]*8+nextMove[1][1]]=board[nextMove[0][0]*8+nextMove[0][1]];
   board[nextMove[0][0]*8+nextMove[0][1]]=""
   postMoveProcessing(nextMove, staticPlayer);
+
+  end = new Date().getTime();
+  time = (end-start)/1000;
+
+  document.getElementById("black").innerHTML="turn Black ("+parseInt(time)+"s)";
    
   drawBoard();
   document.getElementById("lostWhite").innerHTML = getLostFigures(1);
