@@ -7,17 +7,17 @@ function startTimer(color)
    if (typeof(Worker)!=="undefined"){
       // Check whether Web Worker has been created. If not, create a new Web Worker based on the Javascript file simple-timer.js
       if (w==null){
-         w = new Worker("simple-timer.js");
+         w = new Worker("simpleTimer.js");
       }
       // Update timer div with output from Web Worker
       w.onmessage = function (event) {
-         document.getElementById(color).innerHTML = "turn "+color+" "+event.data;
+         document.getElementById(color).innerHTML = "turn " + color + " (" + event.data + "s)";
       };
    }
 }
 
 // function to stop the timer
-function stopTimer(color)
+function stopTimer()
 {
    w.terminate();
    timerStart = true;

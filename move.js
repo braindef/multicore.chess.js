@@ -49,7 +49,8 @@ function movePost(nextMove)
    
   drawBoard();
   document.getElementById("lostWhite").innerHTML = getLostFigures(1);
-  
+  stopTimer();
+  startTimer("white");  
   document.getElementById("f"+nextMove[0][0]+nextMove[0][1]).className="selected";
   document.getElementById("f"+nextMove[1][0]+nextMove[1][1]).className="selected";
 

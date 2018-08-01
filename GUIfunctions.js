@@ -176,7 +176,10 @@ function registerMouselistener() {
           firstSelected="";
           secondSelected="";
           drawBoard();
-          
+          try
+          { stopTimer(); }
+          catch(e) { console.log("no timer started"); }
+          startTimer("black");
           document.getElementById("lostBlack").innerHTML = getLostFigures(-1);
           setTimeout(function(){ moveBlack(); }, 1000);
           setTimeout(function(){ document.getElementById("black").className="selected";   }, 100);
