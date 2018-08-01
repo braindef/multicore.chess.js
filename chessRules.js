@@ -240,18 +240,20 @@ function postMoveProcessing(move, player)
 
 function castlingMovePossible(move, player) {
   if(move[1][0]==7&&move[1][1]==6)   //Check small Castling (rochade) move white
-    if(board[move[0][0]*8+move[0][1]]==whiteKing)
-      if(board[7*8+5]==emptyField)
-        if(board[7*8+6]==emptyField)
-          if(board[7*8+7]==whiteRook)
-            return true;
+    if(move[0][0]==move[1][0])
+      if(board[move[0][0]*8+move[0][1]]==whiteKing)
+        if(board[7*8+5]==emptyField)
+          if(board[7*8+6]==emptyField)
+            if(board[7*8+7]==whiteRook)
+              return true;
 
   if(move[1][0]==0&&move[1][1]==6)   //Check small Castling (rochade) move black
-    if(board[move[0][0]*8+move[0][1]]==blackKing)
-      if(board[0*8+5]==emptyField)
-        if(board[0*8+6]==emptyField)
-          if(board[0*8+7]==blackRook)
-              return true;
+    if(move[0][0]==move[1][0])
+      if(board[move[0][0]*8+move[0][1]]==blackKing)
+        if(board[0*8+5]==emptyField)
+          if(board[0*8+6]==emptyField)
+            if(board[0*8+7]==blackRook)
+                return true;
   return false;
 }
 

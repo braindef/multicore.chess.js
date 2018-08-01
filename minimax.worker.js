@@ -4,6 +4,7 @@
 
 self.importScripts('minimax.js');
 self.importScripts('chessRules.js');
+self.importScripts('alphabeta.js');
 
 onmessage = function(e) {
 
@@ -27,7 +28,8 @@ onmessage = function(e) {
   var init = data[66]=="true";
   var moveNumber = data[67];
   
-  result = minimax(depth, player, false, true);
+  //result = minimax(depth, player, false, true);
+  result = alphabeta(depth, player, false, true, -100000, 100000);
   
   console.log(result);
   
