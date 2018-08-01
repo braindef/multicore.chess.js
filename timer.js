@@ -1,5 +1,7 @@
 var w = null; // initialize variable
 
+var lastTime = 0;
+
 // function to start the timer
 function startTimer(color)
 {
@@ -11,6 +13,7 @@ function startTimer(color)
       }
       // Update timer div with output from Web Worker
       w.onmessage = function (event) {
+         lastTime = event.data;
          document.getElementById(color).innerHTML = "turn " + color + " (" + event.data + "s)";
       };
    }

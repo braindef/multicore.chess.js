@@ -36,7 +36,9 @@ function movePost(nextMove)
   
   save();
  
-  document.getElementById("output").innerHTML+= getFigure(nextMove) + " " + getVerticalLetter(nextMove[0][0])+getHorizontalNumber(nextMove[0][1]) + " => " + getVerticalLetter(nextMove[1][0]) + getHorizontalNumber(nextMove[1][1]) + "<br>";
+  document.getElementById("output").innerHTML+= getFigure(nextMove) + " " + getVerticalLetter(nextMove[0][0])+getHorizontalNumber(nextMove[0][1]) +
+                                                                      " => " + getVerticalLetter(nextMove[1][0]) + getHorizontalNumber(nextMove[1][1]) +
+                                                                      " ("+lastTime+")"+"<br>";
   
   board[nextMove[1][0]*8+nextMove[1][1]]=board[nextMove[0][0]*8+nextMove[0][1]];
   board[nextMove[0][0]*8+nextMove[0][1]]=""

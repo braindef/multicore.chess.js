@@ -30,7 +30,7 @@ if (timerStart){
    // get current time
    var d0=(new Date()).valueOf();
    // repeat myTimer(d0) every 100 ms
-   myVar=setInterval(function(){myTimer(d0)},100);
+   myVar=setInterval(function(){myTimer(d0)},500);
    // timer should not start anymore since it has been started
    timerStart = false;
 }
