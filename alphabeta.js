@@ -37,10 +37,10 @@ function alphabeta(depth, player, init, resetCounter, alpha, beta)
     {
       bestValue = value;
       bestMove = moves[i];
-    
-      if (bestValue >= beta)
-         break;
     }
+    if (bestValue >= beta)
+       break;
+    
   }
   return [ bestValue, bestMove ];
 }

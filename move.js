@@ -45,11 +45,11 @@ function movePost(nextMove)
   end = new Date().getTime();
   time = (end-start)/1000;
 
-  document.getElementById("black").innerHTML="turn Black ("+parseInt(time)+"s)";
+  //document.getElementById("black").innerHTML="turn Black ("+parseInt(time)+"s)";
    
   drawBoard();
   document.getElementById("lostWhite").innerHTML = getLostFigures(1);
-  stopTimer();
+  try { stopTimer(); } catch(e) { console.log("no timer started"); }
   startTimer("white");  
   document.getElementById("f"+nextMove[0][0]+nextMove[0][1]).className="selected";
   document.getElementById("f"+nextMove[1][0]+nextMove[1][1]).className="selected";
