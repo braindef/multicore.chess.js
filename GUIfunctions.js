@@ -131,12 +131,14 @@ function getFigure(nextMove) {
 
 var firstSelected = "";
 var secondSelected  = "";
+var lockWhite = false;
 
 //register mouselistener to fields on board
 function registerMouselistener() {
   for (var i = 0; i<8; i++) {
     for (var j = 0; j<8; j++) {
       document.getElementById(fields[i][j]).onclick = function( event ) {
+        if (lockWhite==true) return;
         getBoardFromHTML();
         if (firstSelected=="") {
           if (document.getElementById(event.target.id).innerHTML=="") return;  //TODO: take data from array
@@ -179,6 +181,7 @@ function registerMouselistener() {
           drawBoard();
           try { stopTimer(); } catch(e) { console.log("no timer started"); }
           startTimer("black");
+          lockWhite=true;
           document.getElementById("lostBlack").innerHTML = getLostFigures(-1);
           setTimeout(function(){ moveBlack(); }, 1000);
           setTimeout(function(){ document.getElementById("black").className="selected";   }, 100);
@@ -211,7 +214,7 @@ function getLostFigures(player) {
 }
 
 function resetBoard() {
-  firstSelected = "";
+  //firstSelected = "";
   secondSelected  = "";
   for(var i = 0; i<8; i++)
     for(var j = 0; j<8; j++)

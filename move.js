@@ -4,19 +4,12 @@ var end=0;
 
 
 function moveWhite() {
-  start = new Date().getTime();
   movePre(1);
-  end = new Date().getTime();
-  time = (end-start)/1000;
-  document.getElementById("white").innerHTML="turn White ("+time+"s)";
 }
 
 
 function moveBlack() {
-  start = new Date().getTime();
   movePre(-1);
-
-
 }
 
 var staticPlayer = 0;
@@ -70,7 +63,7 @@ function movePost(nextMove)
     }
     else if(isInCheck(-staticPlayer)) openModal("check");
 
-
+  lockWhite = false;
   setTimeout(function(){  resetBoard(); }, 5000);
 
 }

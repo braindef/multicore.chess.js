@@ -1,6 +1,6 @@
 var w = null; // initialize variable
 
-var lastTime = 0;
+var lastTime = "00:00";
 
 // function to start the timer
 function startTimer(color)
