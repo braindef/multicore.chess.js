@@ -1,4 +1,4 @@
-function MTDF(root, f, d) is
+/*function MTDF(root, f, d) is
     g := f
     upperBound := +∞
     lowerBound := −∞
@@ -10,3 +10,9 @@ function MTDF(root, f, d) is
         else
             lowerBound := g
     return g
+    
+    */
+    
+    
+
+
