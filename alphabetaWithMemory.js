@@ -2,7 +2,7 @@
 
 
 function AlphaBetaWithMemory(n, alpha , beta , depth , player)
-{/*
+{
   if (retrieve(n) == OK) / Transposition table lookup 
   {
     if (getLowerbound(n) >= beta) return getLowerbound(n);
@@ -54,19 +54,9 @@ function AlphaBetaWithMemory(n, alpha , beta , depth , player)
     store(n, lowerbound, "");
   }
   return g;
-*/
-}
-
-
-function evaluateNode(node, player)
-{
-//0
-  newNode = new Node();
-  newNode.value = evaluateBoard();
-
-  pushNode(newNode)
 
 }
+
 
 
 function retrieve(node)

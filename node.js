@@ -5,6 +5,8 @@ class Node {
   constructor ()
   { 
     this.id = allNodes++;
+    this.value = evaluateBoard();
+    this.childPointer = 0;
   }
 
   firstchild(node, player)
@@ -20,6 +22,7 @@ class Node {
     try
     {
       this.childPointer += 1;
+      console.log(this.childPointer);
       return this.children[this.childPointer];
     }
     catch(err)
