@@ -9,6 +9,7 @@ function moveWhite() {
 
 
 function moveBlack() {
+  selectAlgorithm();
   movePre(-1);
 }
 

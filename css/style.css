@@ -5,7 +5,7 @@ div {
 
 }
 
-button, input {
+button, input, select {
   width:50;
   height:50;
   border: none;

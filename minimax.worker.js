@@ -28,10 +28,21 @@ onmessage = function(e) {
   var player = data[65];
   var init = data[66]=="true";
   var moveNumber = data[67];
+  var algorithm = data[68];
   
-  //result = minimax(depth, player, false, true);
-  //result = alphabeta(depth, player, false, true, -100000, 100000);
-  result = negaScout(depth, player, false, true, -100000, 100000);
+
+  
+  var result;
+  
+  if(algorithm==0)
+    result = minimax(depth, player, false, true);
+
+  if(algorithm==1)
+    result = alphabeta(depth, player, false, true, -100000, 100000);
+    
+  if(algorithm==2)
+    result = negaScout(depth, player, false, true, -100000, 100000);
+  
   
   console.log(result);
   

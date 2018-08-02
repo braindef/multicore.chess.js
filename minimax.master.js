@@ -1,5 +1,5 @@
 
-var cpuCores = 10;
+var cpuCores = 16;
 var workers = [];
 var numMoves = 0;
 
@@ -16,7 +16,15 @@ function createWorkers()
 }
 
 var storedMoves = [];
+var algorithm = 0;
 
+function selectAlgorithm()
+{
+  var selectionBox = document.getElementById("algorithm");
+  algorithm = selectionBox.selectedIndex;
+  console.log("ALGI: "+algorithm);
+}
+  
 
 //minmax algorithm that does the game
 function minimaxPre(depth, player, init, resetCounter)  //TODO: RESETCOUNTER
@@ -35,7 +43,7 @@ function minimaxPre(depth, player, init, resetCounter)  //TODO: RESETCOUNTER
       revertMove(move);
       continue;
     }
-    data = [ board, depth-1, -player, init, i ];
+    data = [ board, depth-1, -player, init, i, algorithm ];
     numMoves+=1;
     workers[i%cpuCores].postMessage(data);
     

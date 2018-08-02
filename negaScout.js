@@ -1,5 +1,5 @@
 
-
+//TODO: insert isCheck()
 
 function negaScout(depth, player, init, resetCounter, alpha, beta)
 {
