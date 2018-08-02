@@ -7,12 +7,18 @@ class Node {
     this.id = allNodes++;
     this.value = evaluateBoard();
     this.childPointer = 0;
+    this.childrenNode = [];
   }
 
   firstchild(node, player)
   {  //vermutlich hier das possibleMoves(player)
-    this.children = possibleMoves(player);
-    return this.children[0];
+    this.childrenMoves = possibleMoves(player);
+    this.childPointer = 0;
+    var savedData = commitMove(this.childrenMoves[i], player);
+    let newNode = new Node();
+    this.childrenNode.push(newNode.id);
+    revertMove(savedData);
+    return newNode.value;
   }
 
   nextbrother(node)
@@ -29,7 +35,7 @@ class Node {
     {
       
     }
-    return "NOCHILD"
+    return "NOCHILD"  //never returns
   }
 
   pushNode(node)

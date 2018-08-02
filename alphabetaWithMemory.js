@@ -1,6 +1,6 @@
 
 
-
+/*
 function AlphaBetaWithMemory(n, alpha , beta , depth , player)
 {
   if (retrieve(n) == OK) / Transposition table lookup 
@@ -70,4 +70,4 @@ function store(node, lowerbound, upperbound)
 }
 
 
-
+*/
