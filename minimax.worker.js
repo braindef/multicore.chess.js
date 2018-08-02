@@ -5,6 +5,7 @@
 self.importScripts('minimax.js');
 self.importScripts('chessRules.js');
 self.importScripts('alphabeta.js');
+self.importScripts('negaScout.js');
 
 onmessage = function(e) {
 
@@ -29,7 +30,8 @@ onmessage = function(e) {
   var moveNumber = data[67];
   
   //result = minimax(depth, player, false, true);
-  result = alphabeta(depth, player, false, true, -100000, 100000);
+  //result = alphabeta(depth, player, false, true, -100000, 100000);
+  result = negaScout(depth, player, false, true, -100000, 100000);
   
   console.log(result);
   
