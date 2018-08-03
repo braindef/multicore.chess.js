@@ -1,72 +1,82 @@
-let allNodes = [];
+"use strict";
+
+var nodes = new Array();
+var nodePointer = 0;
 
 class Node {
 
-  constructor ()
+  constructor (player)
   { 
-    this.id = allNodes++;
+    this.player=player;
+    this.board = board.slice();
+    this.id = nodePointer++;
     this.value = evaluateBoard();
     this.childPointer = 0;
-    this.childrenNode = [];
+    this.children = [];
+    this.board = [];
+    this.lowerbound=null;
+    this.upperbound=null;
+    nodes.push(this);
+    nodePointer++;
   }
 
-  firstchild(node, player)
+  firstchild()
   {  //vermutlich hier das possibleMoves(player)
-    this.childrenMoves = possibleMoves(player);
     this.childPointer = 0;
-    var savedData = commitMove(this.childrenMoves[i], player);
-    let newNode = new Node();
-    this.childrenNode.push(newNode.id);
+
+    this.moves = possibleMoves(this.player);
+
+    var savedData = commitMove(this.moves[0], this.player);
+
+    let newNode = new Node(-this.player);
+    
+    this.children.push(newNode.id);
+    
     revertMove(savedData);
+    
     return newNode.value;
   }
 
-  nextbrother(node)
+  nextbrother()
   {
-    //getNode(node).
+    this.childPointer += 1;
 
-    try
-    {
-      this.childPointer += 1;
-      console.log(this.childPointer);
-      return this.children[this.childPointer];
-    }
-    catch(err)
-    {
-      
-    }
-    return "NOCHILD"  //never returns
-  }
+    if(childPointer>this.moves.length)
+      return "NOCHILD";
 
-  pushNode(node)
-  {
-    allNodes.push(node);
-  }
+    this.moves = possibleMoves(player);
 
-  getNode(node)
-  {
-    return allNodes[node];
-  }
+    var savedData = commitMove(this.moves[this.childPointer], this.player);
 
-  getLowerbound(node)
-  {
-    getNode(node).lowerband;
-  }
+    let newNode = new Node(-this.player);
 
-  getUpperbound(node)
-  {
-    return getNode(node).upperband;
+    this.children.push(newNode.id);
+    
+    revertMove(savedData);
+    
+    
+    return newNode.value;
+
   }
 }
 
-function player(node)
-{
-  return 1;
-}
+function getNode(node)
+  {
+    console.log("N: "+node);
+    console.log("Obj: "+nodes[node]);
+    console.log("ALL: ");
+    console.log(nodes);
+    return nodes[node];
+  }
 
-function retrieve(node)
-{
 
+function retrieve(node, player)
+{
+  if(nodes[node]==undefined)
+    new Node(player);
+  
+  console.log(nodes);
+    
   return false;
 }
 

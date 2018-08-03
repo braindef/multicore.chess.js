@@ -1,29 +1,30 @@
 
 
 
-function AlphaBetaWithMemory(n, alpha , beta , depth , player)
+function AlphaBetaWithMemory(node, alpha , beta , depth , player)
 {
-  if (retrieve(n)) // Transposition table lookup 
+  if (retrieve(node, player)) // Transposition table lookup 
   {
-    if (getLowerbound(n) >= beta) return getLowerbound(n);
-    if (getUpperbound(n) <= alpha) return getUpperbound(n);
-    alpha = max(alpha, getLowerbound(n));
-    beta = min(beta, n.getUpperbound(n));
+    if (getLowerbound(node) >= beta) return getLowerbound(n);
+    if (getUpperbound(node) <= alpha) return getUpperbound(n);
+    alpha = max(alpha, getLowerbound(node));
+    beta = min(beta, n.getUpperbound(node));
   }
   
   if (depth == 0)   
-    g = evaluateNode(n, player); // leaf node 
+    g = getNode(node).value; // leaf node 
   
-  else if (player(n)==1) // n is a MAXNODE 
+  else if (getNode(node).player==1) // n is a MAXNODE 
   {
     g = -100000000;
     a = alpha; // save original alpha value 
-    c = firstchild(n);
-    while ((g < beta) && (c != NOCHILD))
+    console.log("NODE: "+getNode(node));
+    c = getNode(node).firstchild();
+    while ((g < beta) && (c != "NOCHILD"))
     {
-      g = max(g, AlphaBetaWithMemory(c, a, beta, depth - 1, -player));
-      a = max(a, g);
-      c = nextbrother(c);
+      g = Math.max(g, AlphaBetaWithMemory(c, a, beta, depth - 1, -player));
+      a = Math.max(a, g);
+      c = getNode(node).nextbrother();
     }
   }
   
@@ -43,15 +44,15 @@ function AlphaBetaWithMemory(n, alpha , beta , depth , player)
   // Fail low result implies an upper bound 
   if (g <= alpha)
   {
-    n.upperbound = g; 
-    store(n, "", upperbound);
+    getNode(node).upperbound = g; 
+    //TODO: store(n, "", upperbound);
   }
   // Found an accurate minimax value - will not occur if called with zero window 
   if (g > alpha && g < beta)
   {
-    n.lowerbound = g;
-    n.upperbound = g;
-    store(n, lowerbound, upperbound);
+    getNode(node).lowerbound = g;
+    getNode(node).upperbound = g;
+    //TODO: noch überürpfen ob es das nicht doch braucht: store(n, lowerbound, upperbound);
   }
   // Fail high result implies a lower bound 
   if (g >= beta)

@@ -6,6 +6,7 @@ self.importScripts('minimax.js');
 self.importScripts('chessRules.js');
 self.importScripts('alphabeta.js');
 self.importScripts('negaScout.js');
+
 //MTD(f)
 self.importScripts('alphabetaWithMemory.js');
 self.importScripts('node.js');

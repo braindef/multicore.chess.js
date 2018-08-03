@@ -4,6 +4,10 @@ FROM = 0; TO = 1; X = 0; Y = 1;
 
 //white = maximizing  // black = minimizing
 function evaluateBoard() {
+  return evaluate(board);
+}
+
+function evaluate(board) {
   var points=0;
   for(var i = 0; i < 8; i++)
     for(var j = 0; j < 8; j++)
@@ -122,6 +126,7 @@ function minimax(depth, player, init, resetCounter)
 
 function commitMove(move, player) {
   var king=0;
+  var pawn=0;
   if(player==1) king=whiteKing;
   if(player==-1) king=blackKing;
   
