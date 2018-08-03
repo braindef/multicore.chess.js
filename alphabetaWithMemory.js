@@ -3,7 +3,7 @@
 
 function AlphaBetaWithMemory(n, alpha , beta , depth , player)
 {
-  if (retrieve(n) == OK) // Transposition table lookup 
+  if (retrieve(n)) // Transposition table lookup 
   {
     if (getLowerbound(n) >= beta) return getLowerbound(n);
     if (getUpperbound(n) <= alpha) return getUpperbound(n);
@@ -14,7 +14,7 @@ function AlphaBetaWithMemory(n, alpha , beta , depth , player)
   if (depth == 0)   
     g = evaluateNode(n, player); // leaf node 
   
-  else if (n == MAXNODE) 
+  else if (player(n)==1) // n is a MAXNODE 
   {
     g = -100000000;
     a = alpha; // save original alpha value 
@@ -64,16 +64,6 @@ function AlphaBetaWithMemory(n, alpha , beta , depth , player)
 }
 
 
-
-function retrieve(node)
-{
-
-}
-
-function store(node, lowerbound, upperbound)
-{
-
-}
 
 
 

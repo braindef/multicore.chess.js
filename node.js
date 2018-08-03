@@ -59,12 +59,15 @@ class Node {
   }
 }
 
-
+function player(node)
+{
+  return 1;
+}
 
 function retrieve(node)
 {
-  return "OK";
-  return "FALSE";
+
+  return false;
 }
 
 function store(node, lowerbound, upperbound)
