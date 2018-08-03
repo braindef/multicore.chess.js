@@ -1,9 +1,9 @@
 
 
-/*
+
 function AlphaBetaWithMemory(n, alpha , beta , depth , player)
 {
-  if (retrieve(n) == OK) / Transposition table lookup 
+  if (retrieve(n) == OK) // Transposition table lookup 
   {
     if (getLowerbound(n) >= beta) return getLowerbound(n);
     if (getUpperbound(n) <= alpha) return getUpperbound(n);
@@ -19,10 +19,12 @@ function AlphaBetaWithMemory(n, alpha , beta , depth , player)
     g = -100000000;
     a = alpha; // save original alpha value 
     c = firstchild(n);
-    while (g < beta) and (c != NOCHILD) do
+    while ((g < beta) && (c != NOCHILD))
+    {
       g = max(g, AlphaBetaWithMemory(c, a, beta, depth - 1, -player));
       a = max(a, g);
       c = nextbrother(c);
+    }
   }
   
   else // n is a MINNODE 
@@ -30,10 +32,13 @@ function AlphaBetaWithMemory(n, alpha , beta , depth , player)
     g = 100000000;
     b = beta; // save original beta value 
     c = firstchild(n);
-    while (g > alpha) and (c != NOCHILD) do
+    while ((g > alpha) && (c != NOCHILD))
+    {
       b = min(b, g);
       c = nextbrother(c);
+    }
   }
+  
   // Traditional transposition table storing of bounds 
   // Fail low result implies an upper bound 
   if (g <= alpha)
@@ -47,6 +52,7 @@ function AlphaBetaWithMemory(n, alpha , beta , depth , player)
     n.lowerbound = g;
     n.upperbound = g;
     store(n, lowerbound, upperbound);
+  }
   // Fail high result implies a lower bound 
   if (g >= beta)
   {
@@ -70,4 +76,4 @@ function store(node, lowerbound, upperbound)
 }
 
 
-*/
+

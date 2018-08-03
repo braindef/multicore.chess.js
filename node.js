@@ -59,3 +59,16 @@ class Node {
   }
 }
 
+
+
+function retrieve(node)
+{
+  return "OK";
+  return "FALSE";
+}
+
+function store(node, lowerbound, upperbound)
+{
+
+}
+
