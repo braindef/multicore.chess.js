@@ -9,7 +9,7 @@ class Node {
   { 
     this.player=player;
     this.board = board.slice();
-    this.id = nodePointer++;
+    this.id = nodePointer;
     this.value = evaluateBoard();
     this.childPointer = 0;
     this.children = [];
@@ -17,7 +17,8 @@ class Node {
     this.lowerbound=null;
     this.upperbound=null;
     nodes.push(this);
-    nodePointer++;
+    nodePointer+=1;
+    console.log("Nodepointer: "+nodePointer);
   }
 
   firstchild()
@@ -34,14 +35,14 @@ class Node {
     
     revertMove(savedData);
     
-    return newNode.value;
+    return newNode.id;
   }
 
   nextbrother()
   {
     this.childPointer += 1;
 
-    if(childPointer>this.moves.length)
+    if(this.childPointer>=this.moves.length)
       return "NOCHILD";
 
     this.moves = possibleMoves(player);
@@ -55,7 +56,7 @@ class Node {
     revertMove(savedData);
     
     
-    return newNode.value;
+    return newNode.id;
 
   }
 }

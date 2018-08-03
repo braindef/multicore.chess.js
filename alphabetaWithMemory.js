@@ -19,12 +19,12 @@ function AlphaBetaWithMemory(node, alpha , beta , depth , player)
     g = -100000000;
     a = alpha; // save original alpha value 
     console.log("NODE: "+getNode(node));
-    c = getNode(node).firstchild();
-    while ((g < beta) && (c != "NOCHILD"))
+    child = getNode(node).firstchild();
+    while ((g < beta) && (child != "NOCHILD"))
     {
-      g = Math.max(g, AlphaBetaWithMemory(c, a, beta, depth - 1, -player));
+      g = Math.max(g, AlphaBetaWithMemory(child, a, beta, depth - 1, -player));
       a = Math.max(a, g);
-      c = getNode(node).nextbrother();
+      child = getNode(node).nextbrother();
     }
   }
   
@@ -32,11 +32,11 @@ function AlphaBetaWithMemory(node, alpha , beta , depth , player)
   {
     g = 100000000;
     b = beta; // save original beta value 
-    c = firstchild(n);
-    while ((g > alpha) && (c != NOCHILD))
+    child = getNode(node).firstchild();
+    while ((g > alpha) && (child != "NOCHILD"))
     {
-      b = min(b, g);
-      c = nextbrother(c);
+      b = Math.min(b, g);
+      child = getNode(node).nextbrother();
     }
   }
   
@@ -57,8 +57,8 @@ function AlphaBetaWithMemory(node, alpha , beta , depth , player)
   // Fail high result implies a lower bound 
   if (g >= beta)
   {
-    n.lowerbound = g; 
-    store(n, lowerbound, "");
+    getNode(node).lowerbound = g;
+    //store(n, lowerbound, "");
   }
   return g;
 
