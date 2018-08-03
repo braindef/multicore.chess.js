@@ -60,8 +60,6 @@ var totalInstances = 0;
 function handleMessageFromWorker(msg) {
     console.log('incoming message from worker, msg:', msg.data);
 
-
-
     results.push(msg.data);
 
     currentWorker+=1;

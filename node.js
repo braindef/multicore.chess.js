@@ -25,10 +25,10 @@ class Node {
   {  //vermutlich hier das possibleMoves(player) TODO: NICHT JEDES MAL
     this.childPointer = 0;
 
-    if(this.moves==[])
+    if(this.moves.length==0)
+    {
       this.moves = possibleMoves(this.player);
-    
-    console.log(this.moves);
+    }
 
     var savedData = commitMove(this.moves[0], this.player);
 
@@ -45,13 +45,17 @@ class Node {
   {
     this.childPointer += 1;
 
-    if(this.childPointer==this.moves.length)
-      return "NOCHILD";
+    //console.log(this.moves[this.childPointer]);
 
-    if(this.moves==[])
-      this.moves = possibleMoves(this.player);
-
+    try 
+    {
     var savedData = commitMove(this.moves[this.childPointer], this.player);
+    }
+    catch(err)
+    {
+      return "NOCHILD";
+    }
+
 
     let newNode = new Node(-this.player);
 
@@ -60,7 +64,6 @@ class Node {
     revertMove(savedData);
     
     return newNode.id;
-
   }
 }
 

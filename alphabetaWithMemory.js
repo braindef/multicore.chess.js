@@ -23,7 +23,7 @@ function AlphaBetaWithMemory(node, alpha , beta , depth , player, init)
   
   else if (getNode(node).player==1) // n is a MAXNODE 
   {
-    g = -100000000;
+    g = -100000;
     a = alpha; // save original alpha value 
     child = getNode(node).firstchild();
     var i = 0;
@@ -40,7 +40,7 @@ function AlphaBetaWithMemory(node, alpha , beta , depth , player, init)
   
   else // n is a MINNODE 
   {
-    g = 100000000;
+    g = 100000;
     b = beta; // save original beta value 
     child = getNode(node).firstchild();
     var i = 0;
