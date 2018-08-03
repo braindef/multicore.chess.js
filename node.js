@@ -16,16 +16,19 @@ class Node {
     this.board = [];
     this.lowerbound=null;
     this.upperbound=null;
+    this.moves = [];
     nodes.push(this);
     nodePointer+=1;
-    console.log("Nodepointer: "+nodePointer);
   }
 
   firstchild()
-  {  //vermutlich hier das possibleMoves(player)
+  {  //vermutlich hier das possibleMoves(player) TODO: NICHT JEDES MAL
     this.childPointer = 0;
 
-    this.moves = possibleMoves(this.player);
+    if(this.moves==[])
+      this.moves = possibleMoves(this.player);
+    
+    console.log(this.moves);
 
     var savedData = commitMove(this.moves[0], this.player);
 
@@ -42,10 +45,11 @@ class Node {
   {
     this.childPointer += 1;
 
-    if(this.childPointer>=this.moves.length)
+    if(this.childPointer==this.moves.length)
       return "NOCHILD";
 
-    this.moves = possibleMoves(player);
+    if(this.moves==[])
+      this.moves = possibleMoves(this.player);
 
     var savedData = commitMove(this.moves[this.childPointer], this.player);
 
@@ -55,18 +59,16 @@ class Node {
     
     revertMove(savedData);
     
-    
     return newNode.id;
 
   }
 }
 
-function getNode(node)
+  function getNode(node)
   {
-    console.log("N: "+node);
-    console.log("Obj: "+nodes[node]);
-    console.log("ALL: ");
-    console.log(nodes);
+    if(nodes[node]==undefined)
+      new Node(player);
+      
     return nodes[node];
   }
 
@@ -74,11 +76,12 @@ function getNode(node)
 function retrieve(node, player)
 {
   if(nodes[node]==undefined)
+  {
     new Node(player);
-  
-  console.log(nodes);
+    return false;
+  }
     
-  return false;
+  return true;
 }
 
 function store(node, lowerbound, upperbound)

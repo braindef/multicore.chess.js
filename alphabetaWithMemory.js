@@ -1,16 +1,23 @@
 
 
 
-function AlphaBetaWithMemory(node, alpha , beta , depth , player)
+function AlphaBetaWithMemory(node, alpha , beta , depth , player, init)
 {
+  var bestMove = [[0,0],[0,0]];
+  
+  if(init) console.log("PLAYER: "+player);
+  
+  retrieve(node, player);
+  
+  /*
   if (retrieve(node, player)) // Transposition table lookup 
   {
-    if (getLowerbound(node) >= beta) return getLowerbound(n);
-    if (getUpperbound(node) <= alpha) return getUpperbound(n);
-    alpha = max(alpha, getLowerbound(node));
-    beta = min(beta, n.getUpperbound(node));
+    if (getNode(node).lowerbound >= beta) return getNode(node).lowerbound;
+    if (getNode(node).upperbound <= alpha) return getNode(node).upperbound;
+    alpha = Math.max(alpha, getNode(node).lowerbound);
+    beta = Math.min(beta, getNode(node).upperbound);
   }
-  
+  */
   if (depth == 0)   
     g = getNode(node).value; // leaf node 
   
@@ -18,14 +25,17 @@ function AlphaBetaWithMemory(node, alpha , beta , depth , player)
   {
     g = -100000000;
     a = alpha; // save original alpha value 
-    console.log("NODE: "+getNode(node));
     child = getNode(node).firstchild();
+    var i = 0;
     while ((g < beta) && (child != "NOCHILD"))
     {
-      g = Math.max(g, AlphaBetaWithMemory(child, a, beta, depth - 1, -player));
+      i++;
+      g = Math.max(g, AlphaBetaWithMemory(child, a, beta, depth - 1, -player)[0]);
       a = Math.max(a, g);
       child = getNode(node).nextbrother();
     }
+    bestMove = getNode(node).moves[i];
+    if(init) console.log("N: "+node+" + move: "+getNode(node).moves[i] + " i: "+i+ " child: "+child);
   }
   
   else // n is a MINNODE 
@@ -33,11 +43,16 @@ function AlphaBetaWithMemory(node, alpha , beta , depth , player)
     g = 100000000;
     b = beta; // save original beta value 
     child = getNode(node).firstchild();
+    var i = 0;
     while ((g > alpha) && (child != "NOCHILD"))
     {
+      i++;
+      g = Math.max(g, AlphaBetaWithMemory(child, alpha, b, depth - 1, -player)[0]);
       b = Math.min(b, g);
       child = getNode(node).nextbrother();
     }
+    bestMove = getNode(node).moves[i];
+    if(init) console.log("N: "+node+" + move: "+getNode(node).moves[i] + " i: "+i+ " child: "+child);
   }
   
   // Traditional transposition table storing of bounds 
@@ -60,7 +75,11 @@ function AlphaBetaWithMemory(node, alpha , beta , depth , player)
     getNode(node).lowerbound = g;
     //store(n, lowerbound, "");
   }
-  return g;
+  //[ bestvalue, bestMove]
+  if (init) console.log("i: "+i);
+  if (init) console.log(getNode(node).moves);
+  if (init) console.log("BEST :"+[g, bestMove]);
+  return [g, bestMove];
 
 }
 

@@ -48,7 +48,7 @@ onmessage = function(e) {
     result = negaScout(depth, player, false, true, -100000, 100000);    
 
   if(algorithm==3)
-    result = AlphaBetaWithMemory(0, -100000, 100000, depth, player, false, true);
+    result = AlphaBetaWithMemory(0, -100000, 100000, depth, player, true, true);
   
   
   console.log(result);
