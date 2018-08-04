@@ -1,5 +1,43 @@
 "use strict";
 
+var nodes=[];
+var nodePointer = 0;
+
+function retrieve(nodeId, player)
+{
+  if(nodes[nodeId]==undefined)
+  {
+    var newNode=new Node(player);
+    newNode.player=player;
+  }
+  return nodes[nodeId];
+}
+
+
+
+class Node {
+
+  constructor (player)
+  { 
+    this.player=player;
+    this.evaluated=false;
+    this.children=[];
+    this.id=nodePointer;
+    nodePointer++;
+    nodes.push(this);
+  }
+
+
+}
+
+
+
+
+
+
+
+
+/*
 var nodes = new Array();
 var nodePointer = 0;
 
@@ -45,17 +83,16 @@ class Node {
   {
     this.childPointer += 1;
 
-    //console.log(this.moves[this.childPointer]);
+    var savedData = [];
 
     try 
     {
-    var savedData = commitMove(this.moves[this.childPointer], this.player);
+      savedData = commitMove(this.moves[this.childPointer], this.player);
     }
     catch(err)
     {
       return "NOCHILD";
     }
-
 
     let newNode = new Node(-this.player);
 
@@ -91,4 +128,4 @@ function store(node, lowerbound, upperbound)
 {
 
 }
-
+*/

@@ -1,15 +1,107 @@
 
-
-
-function AlphaBetaWithMemory(node, alpha , beta , depth , player, init)
+function AlphaBetaWithMemory(nodeId, alpha , beta , depth , player, init, resetCounter, move)
 {
+  if(resetCounter) instances=0;
+  else instances+=1;
+  
+  //var bestMove = [[0,0],[0,0]];
+  //var g = null;
+
+  node = retrieve(nodeId, player);
+  console.log(node);
+
+
+  if(node.evaluated==false)
+  {
+    if(node.lowerbound >= beta) return [ node.lowerbound, node.lowerMove ];
+    if(node.upperbound <= alpha) return [ node.upperbound, node.upperMove ];
+    alpha = Math.max(alpha, node.lowerbound);
+    beta = Math.max(beta, node.upperbound);
+  }
+  
+  
+  if(depth == 0)
+    g = [ evaluate(board), [[0,0],[0,0]] ];
+  else if (node.player==1) //MAXPLAYER
+  {
+    g= [ -100000, [[0,0],[0,0]] ];
+    a=alpha;
+    moves=possibleMoves(player);
+    for(var i=0; i<moves.length; i++)
+    {
+      var savedData = commitMove(this.moves[i], this.player);
+      var child = new Node(-player);
+      node.children.push(child.id);
+      var tempValue = AlphaBetaWithMemory(child.id, alpha , beta , depth-1 , -player, false, false, this.moves[i]);
+      if(tempValue[0]>g[0])
+      {
+        g = tempValue.slice();
+      }
+      revertMove(savedData);
+      if(!(g<beta)) break;
+    }
+  }
+  else //MINPLAYER
+  {
+    g = [100000, [[0,0],[0,0]] ];
+    b=beta;
+    moves=possibleMoves(player);
+    for(var i=0; i<moves.length; i++)
+    {
+      var savedData = commitMove(this.moves[i], this.player);
+      var child = new Node(-player);
+      node.children.push(child.id);
+      var tempValue = AlphaBetaWithMemory(child.id, alpha , beta , depth-1 , -player, false, false, this.moves[i]);
+      if(tempValue[0]<g[0])
+      {
+        g = tempValue.slice();
+      }
+      revertMove(savedData);
+      if(!(g[0]>beta)) break;
+    }
+  }
+  
+  if (g[0]<= alpha)
+  {
+    node.upperbound = g[0];
+    node.upperMove = g[1];
+  }
+  
+  if ( (g[0]>alpha) && (g[0]<beta) )
+  {
+    node.lowerbound = g[0];
+    node.lowerMove = g[1];
+    node.upperbound = g[0];
+    node.upperMove = g[1];
+  }
+  
+  if (g >= beta)
+  {
+    node.lowerbound = g[0];
+    node.lowerMove = g[1];
+  }
+  
+  node.evaluated=true;  //TODO: unsure
+  
+  return g;
+}
+
+
+
+
+
+/*
+function AlphaBetaWithMemory(node, alpha , beta , depth , player, init, resetCounter)
+{
+  if(resetCounter) instances=0;
+  else instances+=1;
+  
   var bestMove = [[0,0],[0,0]];
   
   if(init) console.log("PLAYER: "+player);
   
-  retrieve(node, player);
-  
-  /*
+
+
   if (retrieve(node, player)) // Transposition table lookup 
   {
     if (getNode(node).lowerbound >= beta) return getNode(node).lowerbound;
@@ -17,7 +109,7 @@ function AlphaBetaWithMemory(node, alpha , beta , depth , player, init)
     alpha = Math.max(alpha, getNode(node).lowerbound);
     beta = Math.min(beta, getNode(node).upperbound);
   }
-  */
+
   if (depth == 0)   
     g = getNode(node).value; // leaf node 
   
@@ -76,9 +168,7 @@ function AlphaBetaWithMemory(node, alpha , beta , depth , player, init)
     //store(n, lowerbound, "");
   }
   //[ bestvalue, bestMove]
-  if (init) console.log("i: "+i);
-  if (init) console.log(getNode(node).moves);
-  if (init) console.log("BEST :"+[g, bestMove]);
+
   return [g, bestMove];
 
 }
@@ -86,4 +176,4 @@ function AlphaBetaWithMemory(node, alpha , beta , depth , player, init)
 
 
 
-
+*/

@@ -51,7 +51,7 @@ onmessage = function(e) {
     result = AlphaBetaWithMemory(0, -100000, 100000, depth, player, true, true);
   
   
-  console.log(result);
+  console.log("RESULT: "+result);
   
   self.postMessage( [ result[0], result[1][0][0], result[1][0][1], result[1][1][0], result[1][1][1], moveNumber, instances ] );
 }
