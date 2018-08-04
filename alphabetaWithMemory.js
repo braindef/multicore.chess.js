@@ -76,6 +76,37 @@ function AlphaBetaWithMemory(nodeId, alpha, beta, depth, player, init, resetCoun
          break;
     }
   }
+  else
+  {
+    console.log("Childrean already exists");
+    for(var i=0; i<node.moves.length; i++)
+    {
+      var child = getNode(node.children[i]);
+      var savedData = commitMove(node.moves[i], player);
+      
+      if(init)
+      {
+        if(isInCheck(player))
+        {
+          //Revert the move: replace with revertMove(savedata)
+          revertMove(savedData);
+          continue;    
+        }
+      }
+
+      var value = -AlphaBetaWithMemory(child.id, -beta, -bestValue, depth-1, -player, false, false);
+      
+      //Revert the move
+      revertMove(savedData);
+
+      if (value > bestValue) 
+      {
+        bestValue = value;
+      }
+      if (bestValue >= beta)
+         break;
+    }
+  }
 
   if (bestValue<= alpha)
     node.upperbound = bestValue;
