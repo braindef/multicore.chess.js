@@ -26,7 +26,7 @@ function AlphaBetaWithMemory(nodeId, alpha , beta , depth , player, init, resetC
   {
     g= [ -100000, [[0,0],[0,0]] ];
     a=alpha;
-    moves=possibleMoves(player);
+    moves=shuffle(possibleMoves(player));
     for(var i=0; i<moves.length; i++)
     {
       var savedData = commitMove(this.moves[i], this.player);
@@ -45,7 +45,7 @@ function AlphaBetaWithMemory(nodeId, alpha , beta , depth , player, init, resetC
   {
     g = [100000, [[0,0],[0,0]] ];
     b=beta;
-    moves=possibleMoves(player);
+    moves=shuffle(possibleMoves(player));
     for(var i=0; i<moves.length; i++)
     {
       var savedData = commitMove(this.moves[i], this.player);

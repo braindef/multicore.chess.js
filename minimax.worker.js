@@ -11,6 +11,8 @@ self.importScripts('negaScout.js');
 self.importScripts('alphabetaWithMemory.js');
 self.importScripts('node.js');
 
+self.importScripts('mtdf.js');
+
 onmessage = function(e) {
 
   console.log("Worker Called and message passed ");
@@ -48,6 +50,9 @@ onmessage = function(e) {
     result = negaScout(depth, player, false, true, -100000, 100000);    
 
   if(algorithm==3)
+    result = AlphaBetaWithMemory(0, -100000, 100000, depth, player, true, true);
+    
+  if(algorithm==4)
     result = AlphaBetaWithMemory(0, -100000, 100000, depth, player, true, true);
   
   
