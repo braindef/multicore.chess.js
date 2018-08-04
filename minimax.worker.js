@@ -54,7 +54,7 @@ onmessage = function(e) {
   if(algorithm==4)
     result = iterative_deepening(0, depth, player); //mtdf(0, f, d);  //mtdf(root, f, d) 
   
-  
+  console.log(result);
 
   
   if (algorithm<3) self.postMessage( [ result[0], result[1][0][0], result[1][0][1], result[1][1][0], result[1][1][1], moveNumber, instances ] );
