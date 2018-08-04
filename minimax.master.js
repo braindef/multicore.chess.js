@@ -68,8 +68,6 @@ function handleMessageFromWorker(msg) {
     
     document.getElementById("instances").value = totalInstances;
     
-    console.log(totalInstances);
-
     if(currentWorker==numMoves)
     {
       currentWorker = 0;
@@ -100,10 +98,6 @@ function minimaxPost(moves) {
       bestMove = storedMoves[minimaxPostNr];
     }
   }
-    console.log("Stored Moves: "+storedMoves.length);
-    console.log(storedMoves);
-    console.log("BEWST: "+bestMove);
-    console.log(moves);
   
     storedMoves = new Array();
     return bestMove;

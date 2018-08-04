@@ -7,7 +7,6 @@ self.importScripts('chessRules.js');
 self.importScripts('alphabeta.js');
 self.importScripts('negaScout.js');
 
-//MTD(f)
 self.importScripts('alphabetaWithMemory.js');
 self.importScripts('node.js');
 
@@ -53,12 +52,13 @@ onmessage = function(e) {
     result = AlphaBetaWithMemory(0, -100000, 100000, depth, player, true, true);
     
   if(algorithm==4)
-    result = AlphaBetaWithMemory(0, -100000, 100000, depth, player, true, true);
+    result = iterative_deepening(0, depth, player); //mtdf(0, f, d);  //mtdf(root, f, d) 
   
   
-  console.log("RESULT: "+result);
+
   
-  self.postMessage( [ result[0], result[1][0][0], result[1][0][1], result[1][1][0], result[1][1][1], moveNumber, instances ] );
+  if (algorithm<3) self.postMessage( [ result[0], result[1][0][0], result[1][0][1], result[1][1][0], result[1][1][1], moveNumber, instances ] );
+  if (algorithm>2) self.postMessage( [ result, 0,0,0,0, moveNumber, instances ] );
 }
 
 

@@ -27,7 +27,7 @@ function alphabeta(depth, player, init, resetCounter, alpha, beta)
       }
     }
 
-    var value = -alphabeta(depth-1, -1*player, false, false, -beta, -bestValue)[0];
+    var value = -alphabeta(depth-1, -player, false, false, -beta, -bestValue)[0];
 
 
     //Revert the move
