@@ -52,7 +52,8 @@ onmessage = function(e) {
     result = AlphaBetaWithMemory(0, -100000, 100000, depth, player, true, true);
     
   if(algorithm==4)
-    result = iterative_deepening(0, depth, player); //mtdf(0, f, d);  //mtdf(root, f, d) 
+    //result = iterative_deepening(0, depth, player); //mtdf(0, f, d);  //mtdf(root, f, d) 
+    result = mtdf(0, 0, depth, player);
   
   
   if (algorithm<3) self.postMessage( [ result[0], result[1][0][0], result[1][0][1], result[1][1][0], result[1][1][1], moveNumber, instances ] );

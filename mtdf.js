@@ -2,9 +2,12 @@
 function iterative_deepening(root, depth, player)
 {
   firstguess = 0;
-  for(var d=0; d<depth; d++)
+  for(var d=1; d<depth; d++)
+  {
+    console.log("deepening: "+d);
     firstguess = mtdf(root, firstguess, d, player);
     //if times_up() then break;
+  }
   return firstguess;
 }
 
@@ -23,7 +26,7 @@ function mtdf(root, f, d, player)
       beta = g;
     
     g = AlphaBetaWithMemory(root, beta - 1, beta, d, player, false, true);
-      
+          
     if (g < beta)
       upperbound = g;
     else
@@ -34,23 +37,3 @@ function mtdf(root, f, d, player)
 }
 
 
-/*
-function mtdf(root, f, d, player) 
-{
-    g = f;
-    upperBound = 1000000;
-    lowerBound = -1000000;
-    while (lowerBound < upperBound)
-    {
-        beta = Math.max(g, lowerBound + 1);
-        g = AlphaBetaWithMemory(root, beta - 1, beta, d, player, false, true);
-//        AlphaBetaWithMemory(nodeId, alpha, beta, depth, player, init, resetCounter)
-        if (g < beta)
-            upperBound = g; 
-        else
-            lowerBound = g;
-    }
-    console.log("mtdf result: "+g);
-    return g;
-}
-*/
