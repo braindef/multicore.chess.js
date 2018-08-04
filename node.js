@@ -5,6 +5,7 @@ var nodePointer = 0;
 
 function retrieve(nodeId, player)
 {
+  //console.log("nodes: "+ nodes +" nodeId "+nodeId);
   if(nodes[nodeId]==undefined)
   {
     var newNode=new Node(player);
@@ -14,7 +15,6 @@ function retrieve(nodeId, player)
 }
 
 
-
 class Node {
 
   constructor (player)
@@ -22,15 +22,17 @@ class Node {
     this.player=player;
     this.evaluated=false;
     this.children=[];
+    this.moves=[];
     this.id=nodePointer;
     nodePointer++;
     nodes.push(this);
   }
-
-
 }
 
-
+function getNode(nodeId)
+{
+  return nodes[nodeId];
+}
 
 
 

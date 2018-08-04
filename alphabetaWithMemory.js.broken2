@@ -1,5 +1,3 @@
-"use strict"
-
 function copy2Darray(from)
 {
   var to = new Array(from.length);
@@ -17,13 +15,13 @@ function copy2Darray(from)
 }
 
 
-
 function AlphaBetaWithMemory(nodeId, alpha, beta, depth, player, init, resetCounter)
 {
+  console.log("depth: "+depth);
   if(resetCounter) instances=0;
   else instances+=1;
   
-  var node = retrieve(nodeId, player);
+  node = retrieve(nodeId, player);
   if(node.evaluated==true)
   {
     console.log("node already evaluated");
@@ -37,13 +35,11 @@ function AlphaBetaWithMemory(nodeId, alpha, beta, depth, player, init, resetCoun
 
   var bestValue = alpha;
 
-
   if(node.moves.length==0)
   {  
     var moves = shuffle(possibleMoves(player));
     node.moves = copy2Darray(moves);
-
-
+  
     for(var i = 0; i < node.moves.length; i++)
     {
       //Make the move
@@ -61,8 +57,9 @@ function AlphaBetaWithMemory(nodeId, alpha, beta, depth, player, init, resetCoun
 
       var newNode = new Node(-player);
 
-      node.children.push(newNode.id);
-
+      node.children[i]=newNode.id;
+      
+      
       var value = -AlphaBetaWithMemory(newNode.id, -beta, -bestValue, depth-1, -player, false, false);
 
       //Revert the move
@@ -76,6 +73,7 @@ function AlphaBetaWithMemory(nodeId, alpha, beta, depth, player, init, resetCoun
          break;
     }
   }
+
 
   if (bestValue<= alpha)
     node.upperbound = bestValue;

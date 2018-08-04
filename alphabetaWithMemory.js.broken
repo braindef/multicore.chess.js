@@ -1,21 +1,3 @@
-"use strict"
-
-function copy2Darray(from)
-{
-  var to = new Array(from.length);
-  for(var i=0; i<from.length; i++)
-  {
-    to[i]=new Array(2);
-    for(var j=0; j<2; j++)
-    {
-      to[i][j]= new Array(2);
-      for(var k=0; k<2; k++)
-        to[i][j][k]=from[i][j][k];
-    }
-  }
-  return to;
-}
-
 
 
 function AlphaBetaWithMemory(nodeId, alpha, beta, depth, player, init, resetCounter)
@@ -23,7 +5,7 @@ function AlphaBetaWithMemory(nodeId, alpha, beta, depth, player, init, resetCoun
   if(resetCounter) instances=0;
   else instances+=1;
   
-  var node = retrieve(nodeId, player);
+  node = retrieve(nodeId, player);
   if(node.evaluated==true)
   {
     console.log("node already evaluated");
@@ -37,33 +19,20 @@ function AlphaBetaWithMemory(nodeId, alpha, beta, depth, player, init, resetCoun
 
   var bestValue = alpha;
 
-
   if(node.moves.length==0)
-  {  
-    var moves = shuffle(possibleMoves(player));
-    node.moves = copy2Darray(moves);
-
+  {
+    node.moves = shuffle(possibleMoves(player));
 
     for(var i = 0; i < node.moves.length; i++)
     {
       //Make the move
       var savedData = commitMove(node.moves[i], player);
 
-      if(init)
-      {
-        if(isInCheck(player))
-        {
-          //Revert the move: replace with revertMove(savedata)
-          revertMove(savedData);
-          continue;    
-        }
-      }
+      var newChild = new Node(-player);
 
-      var newNode = new Node(-player);
+      node.children.push(newChild.id);
 
-      node.children.push(newNode.id);
-
-      var value = -AlphaBetaWithMemory(newNode.id, -beta, -bestValue, depth-1, -player, false, false);
+      var value = -AlphaBetaWithMemory(newChild.id, -beta, -bestValue, depth-1, -player, false, false);
 
       //Revert the move
       revertMove(savedData);
@@ -75,8 +44,38 @@ function AlphaBetaWithMemory(nodeId, alpha, beta, depth, player, init, resetCoun
       if (bestValue >= beta)
          break;
     }
-  }
+  }/*
+  else
+  {
+    for(var i=0; i<node.moves.length; i++)
+    {
+      var child = getNode(node.children[i]);
+      var savedData = commitMove(node.moves[i], player);
+      
+      if(init)
+      {
+        if(isInCheck(player))
+        {
+          //Revert the move: replace with revertMove(savedata)
+          revertMove(savedData);
+          continue;    
+        }
+      }
 
+      var value = -AlphaBetaWithMemory(child.id, -beta, -bestValue, depth-1, -player, false, false);
+      
+      //Revert the move
+      revertMove(savedData);
+
+      if (value > bestValue) 
+      {
+        bestValue = value;
+      }
+      if (bestValue >= beta)
+         break;
+    }
+  }
+*/
   if (bestValue<= alpha)
     node.upperbound = bestValue;
 
