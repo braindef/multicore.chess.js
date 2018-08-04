@@ -27,6 +27,7 @@ class Node {
     nodePointer++;
     nodes.push(this);
   }
+
 }
 
 function getNode(nodeId)

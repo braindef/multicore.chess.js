@@ -38,7 +38,7 @@ function AlphaBetaWithMemory(nodeId, alpha, beta, depth, player, init, resetCoun
   var bestValue = alpha;
 
 
-  if(node.moves.length==0)
+//  if(node.moves.length==0)
   {  
     var moves = shuffle(possibleMoves(player));
     node.moves = copy2Darray(moves);
@@ -60,8 +60,8 @@ function AlphaBetaWithMemory(nodeId, alpha, beta, depth, player, init, resetCoun
       }
 
       var newNode = new Node(-player);
-
-      node.children.push(newNode.id);
+      
+      node.children[i]=newNode.id;
 
       var value = -AlphaBetaWithMemory(newNode.id, -beta, -bestValue, depth-1, -player, false, false);
 
@@ -76,12 +76,19 @@ function AlphaBetaWithMemory(nodeId, alpha, beta, depth, player, init, resetCoun
          break;
     }
   }
-  else
+/*  else
   {
-    console.log("Childrean already exists");
+    console.log("Childrean already exists, movelength=" +node.moves.length);
     for(var i=0; i<node.moves.length; i++)
     {
       var child = getNode(node.children[i]);
+      console.log("1: "+child);
+      console.log("2: "+i);
+      console.log("3: "+node.children[i]);
+      console.log("4: "+node.children);
+      console.log("---------------");
+
+
       var savedData = commitMove(node.moves[i], player);
       
       if(init)
@@ -107,7 +114,7 @@ function AlphaBetaWithMemory(nodeId, alpha, beta, depth, player, init, resetCoun
          break;
     }
   }
-
+*/
   if (bestValue<= alpha)
     node.upperbound = bestValue;
 

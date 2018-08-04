@@ -48,6 +48,7 @@ function minimaxPre(depth, player, init, resetCounter)  //TODO: RESETCOUNTER
     workers[i%cpuCores].postMessage(data);
     
     revertMove(move);
+    //return;
   }
 }
 
