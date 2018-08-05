@@ -9,6 +9,9 @@ minimax algorithm for chess
  * copy Board to URL function
  * open Board from URL function
  * history of moves
+ * minimax algorithm
+ * alpha beta algorithm
+ * negamax algorithm
 
 ![https://raw.githubusercontent.com/braindef/chess.js/master/screenshot.png](https://raw.githubusercontent.com/braindef/chess.js/master/screenshot.png)
 
